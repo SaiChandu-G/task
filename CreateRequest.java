@@ -70,7 +70,13 @@ public class CreateRequest{
             }catch(Exception e){
                 System.out.println(e.getMessage());
                 //scanner.nextLine();
-                continue;
+                System.out.print("Would you like to continue?(y/n) : ");
+                char cont = scanner.next().charAt(0);
+                if(cont == 'n'){
+                    break;
+                }else{
+                continue;    
+                }
             }
 
             System.out.print("Enter request description : ");
@@ -91,7 +97,7 @@ public class CreateRequest{
             request.setIssueType(requestIssueType);
             requests.add(request);
 
-            System.out.print("Would you like to create another request?(y/n) ");
+            System.out.print("Would you like to create another request?(y/n) : ");
             char dec = scanner.next().charAt(0);
             if(dec == 'n'){
                 loop = false;
