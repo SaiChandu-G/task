@@ -52,7 +52,7 @@ this.requests=requests;
 
 @Override
 public String toString(){
-    String result = "EmployeeID : " +id + "\nEmployee name " + name + "\nEmployee email : " +  email + "\nEmployee address : " + address + " \nEmployee Phone" + phone + "\nEmployee designation " + designation + "\n " + requests;
+    String result = "EmployeeID : " +id + "\nEmployee name : " + name + "\nEmployee email : " +  email + "\nEmployee address : " + address + " \nEmployee Phone : " + phone + "\nEmployee designation : " + designation + "\n " + requests;
     return result;
 }
 

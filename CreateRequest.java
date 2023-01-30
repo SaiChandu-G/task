@@ -9,7 +9,21 @@ public class CreateRequest{
         List<ServiceRequest> requests = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         boolean loop = true;
-        Employee employee = new Employee();
+
+        // Department Creation
+        System.out.println("Create Department");
+        System.out.println();
+        System.out.print("Enter department id : ");
+        int departmentId = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter department name : ");
+        String departmentName = scanner.nextLine();
+        Department department = new Department();
+        department.setId(departmentId);
+        department.setName(departmentName);
+        System.out.println();
+
+        // Employee Creation
         System.out.println("Create an Empoloyee");
         System.out.println();
         System.out.print("Enter employee id : ");
@@ -26,14 +40,18 @@ public class CreateRequest{
         scanner.nextLine();
         System.out.print("Enter employee designation : ");
         String employeeDesignation = scanner.nextLine();
+
+        Employee employee = new Employee();
         employee.setId(employeeId);
         employee.setName(employeeName);
         employee.setEmail(employeeEmail);
         employee.setAddress(employeeAddress);
         employee.setPhone(employeePhone);
         employee.setDesignation(employeeDesignation);
+        System.out.println();
 
 
+        // ServiceRequest Creation
         System.out.println("Create a Service Request");
         while(loop){
             System.out.println();
@@ -42,6 +60,18 @@ public class CreateRequest{
             System.out.print("Enter request ID : ");
             int requestId = scanner.nextInt();
             scanner.nextLine();
+
+            List<ServiceRequest> one = requests.stream().filter(a -> a.getId() == requestId).collect(Collectors.toList());
+            try{
+            if(one.size() == 1) {
+                throw new Exception("Sorry! Request already exists with id " + requestId);
+                //break;
+            }
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+                //scanner.nextLine();
+                continue;
+            }
 
             System.out.print("Enter request description : ");
             String requestDescription = scanner.nextLine();
@@ -55,13 +85,6 @@ public class CreateRequest{
             String requestIssueType = scanner.next();
             //scanner.nextLine();
 
-            List<ServiceRequest> one = requests.stream().filter(a -> a.getId() == requestId).collect(Collectors.toList());
-            if(one.size() == 1) {
-                //throw new Exception("Item already exists");
-                System.out.println("Sorry! Request already exists with id " + requestId);
-                break;
-            }
-
             request.setId(requestId);
             request.setDescription(requestDescription);
             request.setPriorityLevel(requestPriorityLevel);
@@ -72,8 +95,7 @@ public class CreateRequest{
             char dec = scanner.next().charAt(0);
             if(dec == 'n'){
                 loop = false;
-            }
-            if(dec == 'y'){
+            }else if(dec == 'y'){
                 loop = true;
             }else{
                 break;
@@ -85,9 +107,10 @@ public class CreateRequest{
             }
         }
         employee.setRequests(requests);
+        department.setEmployee(employee);
         System.out.println();
         System.out.println("Your details are :");
-        System.out.println(employee);
+        System.out.println(department);
         // for(ServiceRequest request : requests){
         //     System.out.println(request);
         //     System.out.println();
